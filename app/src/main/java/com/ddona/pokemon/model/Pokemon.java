@@ -1,7 +1,13 @@
 package com.ddona.pokemon.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "pokemon")
 public class Pokemon {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
 
