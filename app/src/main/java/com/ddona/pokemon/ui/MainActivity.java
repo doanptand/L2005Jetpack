@@ -1,8 +1,10 @@
-package com.ddona.pokemon;
+package com.ddona.pokemon.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.ddona.pokemon.R;
 
 public class MainActivity extends AppCompatActivity {
 
