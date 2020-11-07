@@ -1,6 +1,7 @@
 package com.ddona.pokemon.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -53,7 +54,7 @@ public class PokemonViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<PokemonResponse> call, Throwable t) {
-
+                Log.e("doanpt","error:" + t.getMessage());
             }
         });
     }
