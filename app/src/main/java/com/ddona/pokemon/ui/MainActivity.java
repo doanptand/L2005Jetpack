@@ -11,18 +11,33 @@ import android.view.MenuItem;
 
 import com.ddona.pokemon.R;
 import com.ddona.pokemon.adapter.PokemonPagerAdapter;
+import com.ddona.pokemon.di_demo.Car;
 import com.google.android.material.tabs.TabLayout;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private TabLayout tabLayout;
     private ViewPager vpPokemon;
+    @Inject
+    Car car;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        testDI();
+    }
+
+    private void testDI() {
+        //remove for using DI
+//        car = new Car();
+        car.run();
     }
 
     private void initViews() {
