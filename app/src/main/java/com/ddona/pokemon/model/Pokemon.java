@@ -41,4 +41,11 @@ public class Pokemon {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Pokemon changeUrl() {
+        String[] index = url.split("/");
+        this.url = "https://pokeres.bastionbot.org/images/pokemon/"
+                + index[index.length - 1] + ".png";
+        return this;
+    }
 }

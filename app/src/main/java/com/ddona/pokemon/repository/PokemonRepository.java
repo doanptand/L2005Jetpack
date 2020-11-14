@@ -14,6 +14,7 @@ import com.ddona.pokemon.network.PokemonService;
 import java.nio.file.Path;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 
 public class PokemonRepository {
@@ -25,7 +26,7 @@ public class PokemonRepository {
         this.pokemonService = PokemonModule.getInstance();
     }
 
-    public Call<PokemonResponse> getRemotePokemons() {
+    public Observable<PokemonResponse> getRemotePokemons() {
         return pokemonService.getAllPokemons();
     }
 

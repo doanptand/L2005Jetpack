@@ -13,6 +13,13 @@ import com.ddona.pokemon.repository.PokemonRepository;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,27 +43,52 @@ public class PokemonViewModel extends ViewModel {
     }
 
     public void getPokemons() {
-        repository.getRemotePokemons().enqueue(new Callback<PokemonResponse>() {
-            @Override
-            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
-                if (response.isSuccessful()) {
-                    List<Pokemon> pokemons = response.body().getResults();
-                    for (Pokemon pokemon : pokemons) {
-                        String url = pokemon.getUrl();
-                        String[] index = url.split("/");
-                        String newUrl = "https://pokeres.bastionbot.org/images/pokemon/"
-                                + index[index.length - 1] + ".png";
-                        pokemon.setUrl(newUrl);
-                    }
+       Disposable disposable =  repository.getRemotePokemons()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .flatMap(response -> Observable.fromIterable(response.getResults()))
+                .map(Pokemon::changeUrl)
+                //.filter(pokemon -> pokemon.getName().contains("b"))
+                .toList()
+                .subscribe(pokemons -> {
                     mRemotePokemons.postValue(pokemons);
-                }
-            }
+                    Log.d("doanpt", "size is:" + pokemons.size());
+                });
 
-            @Override
-            public void onFailure(Call<PokemonResponse> call, Throwable t) {
-                Log.e("doanpt","error:" + t.getMessage());
-            }
-        });
+       disposable.dispose();
+
+//        repository.getRemotePokemons()
+//                .observeOn(Schedulers.io())
+//                .subscribeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<PokemonResponse>() {
+//                    @Override
+//                    public void accept(PokemonResponse pokemonResponse) throws Throwable {
+//
+//                    }
+//                });
+
+
+//        repository.getRemotePokemons().enqueue(new Callback<PokemonResponse>() {
+//            @Override
+//            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
+//                if (response.isSuccessful()) {
+//                    List<Pokemon> pokemons = response.body().getResults();
+//                    for (Pokemon pokemon : pokemons) {
+//                        String url = pokemon.getUrl();
+//                        String[] index = url.split("/");
+//                        String newUrl = "https://pokeres.bastionbot.org/images/pokemon/"
+//                                + index[index.length - 1] + ".png";
+//                        pokemon.setUrl(newUrl);
+//                    }
+//                    mRemotePokemons.postValue(pokemons);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+//                Log.e("doanpt","error:" + t.getMessage());
+//            }
+//        });
     }
 
     public void insertPokemon(Pokemon pokemon) {
