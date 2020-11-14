@@ -5,10 +5,15 @@ import android.util.Log;
 import javax.inject.Inject;
 
 public class Car {
-    @Inject
+    //@Inject
     Driver driver;
 
     @Inject
+    public Car(Driver driver) {
+        this.driver = driver;
+    }
+
+    //@Inject
     public Car() {
     }
 
