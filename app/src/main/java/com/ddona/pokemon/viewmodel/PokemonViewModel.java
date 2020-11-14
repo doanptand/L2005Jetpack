@@ -51,11 +51,12 @@ public class PokemonViewModel extends ViewModel {
                 //.filter(pokemon -> pokemon.getName().contains("b"))
                 .toList()
                 .subscribe(pokemons -> {
-                    mRemotePokemons.postValue(pokemons);
                     Log.d("doanpt", "size is:" + pokemons.size());
+                    mRemotePokemons.postValue(pokemons);
                 });
 
-       disposable.dispose();
+       //FIXME remove due to test
+       //disposable.dispose();
 
 //        repository.getRemotePokemons()
 //                .observeOn(Schedulers.io())
