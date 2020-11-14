@@ -6,10 +6,13 @@ import javax.inject.Inject;
 
 public class Car {
     @Inject
+    Driver driver;
+
+    @Inject
     public Car() {
     }
 
     public void run() {
-        Log.d("doanpt", "Car is running");
+        Log.d("doanpt", "Car is drive by " + driver.getName());
     }
 }
