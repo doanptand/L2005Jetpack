@@ -8,21 +8,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ddona.pokemon.model.Pokemon;
-import com.ddona.pokemon.model.PokemonResponse;
 import com.ddona.pokemon.repository.PokemonRepository;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PokemonViewModel extends ViewModel {
     private PokemonRepository repository;
@@ -31,6 +24,7 @@ public class PokemonViewModel extends ViewModel {
 
     public PokemonViewModel(Application application) {
         this.repository = new PokemonRepository(application);
+        this.mLocalPokemons = repository.getLocalPokemons();
     }
 
 
@@ -43,7 +37,7 @@ public class PokemonViewModel extends ViewModel {
     }
 
     public void getPokemons() {
-       Disposable disposable =  repository.getRemotePokemons()
+        Disposable disposable = repository.getRemotePokemons()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .flatMap(response -> Observable.fromIterable(response.getResults()))
@@ -55,8 +49,8 @@ public class PokemonViewModel extends ViewModel {
                     mRemotePokemons.postValue(pokemons);
                 });
 
-       //FIXME remove due to test
-       //disposable.dispose();
+        //FIXME remove due to test
+        //disposable.dispose();
 
 //        repository.getRemotePokemons()
 //                .observeOn(Schedulers.io())
