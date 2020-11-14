@@ -1,8 +1,8 @@
 package com.ddona.pokemon.viewmodel;
 
-import android.app.Application;
 import android.util.Log;
 
+import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -22,8 +22,9 @@ public class PokemonViewModel extends ViewModel {
     private LiveData<List<Pokemon>> mLocalPokemons = null;
     private MutableLiveData<List<Pokemon>> mRemotePokemons = new MutableLiveData<>();
 
-    public PokemonViewModel(Application application) {
-        this.repository = new PokemonRepository(application);
+    @ViewModelInject
+    public PokemonViewModel(PokemonRepository repository) {
+        this.repository = repository;
         this.mLocalPokemons = repository.getLocalPokemons();
     }
 

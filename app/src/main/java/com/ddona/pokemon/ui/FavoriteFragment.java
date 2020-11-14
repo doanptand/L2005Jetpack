@@ -16,7 +16,6 @@ import com.ddona.pokemon.R;
 import com.ddona.pokemon.adapter.PokemonAdapter;
 import com.ddona.pokemon.model.Pokemon;
 import com.ddona.pokemon.viewmodel.PokemonViewModel;
-import com.ddona.pokemon.viewmodel.PokemonViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +42,7 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pokemon, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity(),
-                new PokemonViewModelFactory(requireActivity().getApplication()))
+        viewModel = new ViewModelProvider(requireActivity())
                 .get(PokemonViewModel.class);
         mPokemons = new ArrayList<>();
         adapter = new PokemonAdapter(mPokemons);

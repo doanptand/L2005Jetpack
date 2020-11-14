@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.ddona.pokemon.R;
 import com.ddona.pokemon.model.Pokemon;
 
-
 import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {

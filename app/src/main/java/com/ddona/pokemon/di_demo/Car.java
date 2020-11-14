@@ -9,6 +9,9 @@ public class Car {
     Driver driver;
 
     @Inject
+    Library library;
+
+    @Inject
     public Car(Driver driver) {
         this.driver = driver;
     }
@@ -17,7 +20,11 @@ public class Car {
     public Car() {
     }
 
+    public void wash() {
+        library.doSomething();
+    }
+
     public void run() {
-        Log.d("doanpt", "Car is drive by " + driver.getName());
+        Log.d("doanpt", "Car is drive by " + driver.getName() + " do ");
     }
 }

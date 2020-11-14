@@ -1,13 +1,13 @@
 package com.ddona.pokemon.ui;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.ddona.pokemon.R;
 import com.ddona.pokemon.adapter.PokemonPagerAdapter;
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //remove for using DI
 //        car = new Car();
         car.run();
+        car.wash();
     }
 
     private void initViews() {

@@ -1,9 +1,6 @@
 package com.ddona.pokemon.db;
 
-import android.app.Application;
-
 import androidx.room.Database;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.ddona.pokemon.model.Pokemon;
@@ -12,13 +9,14 @@ import com.ddona.pokemon.model.Pokemon;
 public abstract class PokemonDatabase extends RoomDatabase {
     public abstract PokemonDao pokemonDao();
 
-    public static PokemonDatabase getInstance(Application application) {
-        return Room.databaseBuilder(application.getApplicationContext(),
-                PokemonDatabase.class, "pokemon.db")
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()//FIXME remove later
-                .build();
-    }
+    //FIXME remove due to use hilt
+//    public static PokemonDatabase getInstance(Application application) {
+//        return Room.databaseBuilder(application.getApplicationContext(),
+//                PokemonDatabase.class, "pokemon.db")
+//                .fallbackToDestructiveMigration()
+//                .allowMainThreadQueries()//FIXME remove later
+//                .build();
+//    }
 
 
 }
